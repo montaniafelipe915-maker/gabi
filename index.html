@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eu Te Amo Gabriele ❤️</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0d0d0d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+    }
+
+    /* Partículas de fundo */
+    .particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 80, 100, 0.6);
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.5; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Wrapper do coração */
+    .heart-wrapper {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Coração SVG com clip-path */
+    .heart-container {
+      position: relative;
+      width: 320px;
+      height: 300px;
+      filter: drop-shadow(0 0 30px rgba(255, 50, 80, 0.8));
+      transition: transform 0.15s ease;
+    }
+
+    .heart-container:hover {
+      filter: drop-shadow(0 0 50px rgba(255, 80, 100, 1));
+    }
+
+    .heart-container.clicked {
+      animation: heartBeat 0.4s ease;
+    }
+
+    @keyframes heartBeat {
+      0%   { transform: scale(1); }
+      30%  { transform: scale(1.25); }
+      60%  { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    .heart-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Gradiente animado no coração */
+    .heart-path {
+      fill: url(#heartGradient);
+      animation: pulseHeart 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulseHeart {
+      0%, 100% { transform-origin: center; transform: scale(1); }
+      50%       { transform-origin: center; transform: scale(1.05); }
+    }
+
+    /* Texto dentro do coração */
+    .heart-text-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -52%);
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .heart-text-eu {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+      animation: fadeGlow 2s ease-in-out infinite alternate;
+    }
+
+    .heart-text-love {
+      font-size: 2.6rem;
+      font-weight: bold;
+      color: #fff;
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(255,220,220,0.9), 0 2px 4px rgba(0,0,0,0.4);
+      animation: fadeGlow 2s ease-in-out infinite alternate;
+    }
+
+    .heart-text-name {
+      font-size: 1.6rem;
+      color: #ffe0e6;
+      font-style: italic;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(255,180,200,0.8);
+      animation: fadeGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes fadeGlow {
+      from { opacity: 0.85; text-shadow: 0 0 10px rgba(255,200,210,0.5); }
+      to   { opacity: 1;    text-shadow: 0 0 25px rgba(255,220,230,1); }
+    }
+
+    /* Corações flutuantes ao clicar */
+    .floating-heart {
+      position: fixed;
+      font-size: 1.8rem;
+      pointer-events: none;
+      z-index: 999;
+      animation: floatHeart 1.2s ease-out forwards;
+    }
+
+    @keyframes floatHeart {
+      0%   { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-160px) scale(0.3); opacity: 0; }
+    }
+
+    /* Subtítulo inferior */
+    .subtitle {
+      margin-top: 24px;
+      color: rgba(255, 140, 160, 0.7);
+      font-size: 0.78rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      animation: fadeGlow 3s ease-in-out infinite alternate;
+    }
+
+    /* Brilhos internos */
+    .shine {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .shine-1 { width: 80px; height: 80px; top: 22%; left: 20%; }
+    .shine-2 { width: 40px; height: 40px; top: 15%; left: 55%; }
+  </style>
+</head>
+<body>
+
+<!-- Partículas de fundo -->
+<div class="particles" id="particles"></div>
+
+<!-- Coração principal -->
+<div class="heart-wrapper" id="heartWrapper" onclick="clickHeart(event)">
+  <div class="heart-container" id="heartContainer">
+    <svg class="heart-svg" viewBox="0 0 200 185" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#ff2d55">
+            <animate attributeName="stop-color" values="#ff2d55;#ff6b8a;#ff2d55" dur="3s" repeatCount="indefinite"/>
+          </stop>
+          <stop offset="50%"  stop-color="#ff375f">
+            <animate attributeName="stop-color" values="#ff375f;#ff4d6d;#ff375f" dur="2.5s" repeatCount="indefinite"/>
+          </stop>
+          <stop offset="100%" stop-color="#c0002a">
+            <animate attributeName="stop-color" values="#c0002a;#e00040;#c0002a" dur="3.5s" repeatCount="indefinite"/>
+          </stop>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- Forma do coração -->
+      <path class="heart-path" filter="url(#glow)"
+        d="M100,170 C100,170 15,115 15,60 C15,30 40,10 65,10 C80,10 92,18 100,28 C108,18 120,10 135,10 C160,10 185,30 185,60 C185,115 100,170 100,170 Z"/>
+    </svg>
+
+    <!-- Brilhos -->
+    <div class="shine shine-1"></div>
+    <div class="shine shine-2"></div>
+
+    <!-- Texto centralizado -->
+    <div class="heart-text-wrap">
+      <div class="heart-text-eu">eu</div>
+      <div class="heart-text-love">te amo</div>
+      <div class="heart-text-name">Gabriele</div>
+    </div>
+  </div>
+
+  <div class="subtitle">✦ clique no coração ✦</div>
+</div>
+
+<script>
+  // Gera partículas de fundo
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.width = p.style.height = (Math.random() * 6 + 3) + 'px';
+    p.style.animationDuration = (Math.random() * 8 + 5) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
+    p.style.background = `hsla(${340 + Math.random()*30}, 100%, ${60 + Math.random()*20}%, 0.7)`;
+    container.appendChild(p);
+  }
+
+  // Clique dispara corações voando
+  function clickHeart(e) {
+    const heart = document.getElementById('heartContainer');
+    heart.classList.remove('clicked');
+    void heart.offsetWidth; // reflow
+    heart.classList.add('clicked');
+
+    const emojis = ['❤️','💖','💗','💓','💝','💕','🌹'];
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'floating-heart';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = (e.clientX + (Math.random() - 0.5) * 120) + 'px';
+        el.style.top  = (e.clientY + (Math.random() - 0.5) * 80) + 'px';
+        el.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1300);
+      }, i * 60);
+    }
+  }
+</script>
+</body>
+</html>
+</parameter>
+</invoke>
